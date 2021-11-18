@@ -1,5 +1,6 @@
 package com.bookiply.interview.assignment.models;
 
+import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import com.fasterxml.jackson.annotation.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,20 +13,20 @@ public class Hydrant implements Comparable<Hydrant>{
                     @JsonProperty("longitude") double longitude) {
         this.objectId = objectId;
         this.unitId = unitId;
-        this.geoPoint = new GeoPoint(latitude, longitude);
+        this.coordinate = new GeoCoordinate(latitude, longitude);
     }
 
     private String objectId;
     private String unitId;
-    private GeoPoint geoPoint;
+    private GeoCoordinate coordinate;
     private long distanceToFire;
 
-    public GeoPoint getGeoPoint() {
-        return geoPoint;
+    public GeoCoordinate getCoordinate() {
+        return coordinate;
     }
 
-    public void setGeoPoint(GeoPoint geoPoint) {
-        this.geoPoint = geoPoint;
+    public void setCoordinate(GeoCoordinate coordinate) {
+        this.coordinate = coordinate;
     }
 
     public long getDistanceToFire() {
@@ -57,7 +58,7 @@ public class Hydrant implements Comparable<Hydrant>{
         return "Hydrant{" +
                 "objectId='" + objectId + '\'' +
                 ", unitId='" + unitId + '\'' +
-                ", geoPoint=" + geoPoint.toString() +
+                ", geoPoint=" + coordinate.toString() +
                 ", distanceToFire=" + distanceToFire +
                 '}';
     }

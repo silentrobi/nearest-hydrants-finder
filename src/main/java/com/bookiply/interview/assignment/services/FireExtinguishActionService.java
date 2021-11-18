@@ -1,12 +1,10 @@
 package com.bookiply.interview.assignment.services;
 
-import com.bookiply.interview.assignment.dtos.CoordinateDto;
 import com.bookiply.interview.assignment.dtos.FireExtinguishActionDto;
 import com.bookiply.interview.assignment.dtos.FirehoseDto;
 import com.bookiply.interview.assignment.dtos.HydrantDto;
-import com.bookiply.interview.assignment.models.GeoPoint;
+import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import com.bookiply.interview.assignment.models.Hydrant;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,13 +23,13 @@ public class FireExtinguishActionService implements IFireExtinguishActionService
     }
 
     @Override
-    public FirehoseDto getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException {
+    public Hydrant[] getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException {
         Hydrant[] hydrants = hydrantService.getHydrantsOfNewYorkCity();
 
-        CoordinateDto coordinateDto = fireServiceActionDto.getCoordinate();
+        GeoCoordinate coordinate = fireServiceActionDto.getCoordinate();
         Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(geoLocationService
-                .distance(hydrant.getGeoPoint(),
-                        new GeoPoint(coordinateDto.getLatitude(), coordinateDto.getLongitude()))));
+                .distance(hydrant.getCoordinate(),
+                        new GeoCoordinate(coordinate.getLatitude(), coordinate.getLongitude()))));
 
         //sort array by distanceToFire
         Arrays.sort(hydrants);
@@ -39,10 +37,10 @@ public class FireExtinguishActionService implements IFireExtinguishActionService
         //select hydrants where hydrants[truckCount]
         Hydrant[] requiredHydrants = Arrays.copyOfRange(hydrants, 0, fireServiceActionDto.getTruckCount());
 
-        FirehoseDto firehoseDto = new FirehoseDto();
-        firehoseDto.setTotalFirehosesLength(Arrays.stream(requiredHydrants).mapToLong(x -> x.getDistanceToFire()).sum());
-        firehoseDto.setHydrants(Arrays.stream(requiredHydrants).map(x -> new HydrantDto(x.getUnitId(),  x.getDistanceToFire())).toArray(HydrantDto[]::new));
+//        FirehoseDto firehoseDto = new FirehoseDto();
+//        firehoseDto.setTotalFirehosesLength(Arrays.stream(requiredHydrants).mapToLong(x -> x.getDistanceToFire()).sum());
+//        firehoseDto.setHydrants(Arrays.stream(requiredHydrants).map(x -> new HydrantDto(x.getUnitId(),  x.getDistanceToFire())).toArray(HydrantDto[]::new));
 
-        return firehoseDto;
+        return requiredHydrants;
     }
 }

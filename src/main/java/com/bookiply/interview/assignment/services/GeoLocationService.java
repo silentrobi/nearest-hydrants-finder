@@ -1,13 +1,13 @@
 package com.bookiply.interview.assignment.services;
 
-import com.bookiply.interview.assignment.models.GeoPoint;
+import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GeoLocationService implements IGeoLocationService{
 
     @Override
-    public long distance(GeoPoint startP, GeoPoint endP) {
+    public long distance(GeoCoordinate startP, GeoCoordinate endP) {
         double lat1 = startP.getLatitude();
         double lat2 = endP.getLatitude();
         double lon1 = startP.getLongitude();

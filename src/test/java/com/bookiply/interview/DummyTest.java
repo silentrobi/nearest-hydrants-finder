@@ -1,6 +1,6 @@
 package com.bookiply.interview;
 
-import com.bookiply.interview.assignment.models.GeoPoint;
+import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import com.bookiply.interview.assignment.models.Hydrant;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +19,7 @@ public class DummyTest {
         Assert.assertTrue(true);
     }
 
-    private double calculationByDistance(GeoPoint startP, GeoPoint endP) {
+    private double calculationByDistance(GeoCoordinate startP, GeoCoordinate endP) {
         double lat1 = startP.getLatitude();
         double lat2 = endP.getLatitude();
         double lon1 = startP.getLongitude();
@@ -39,7 +39,7 @@ public class DummyTest {
         return deg * (Math.PI/180);
     }
 
-    private double distance3(GeoPoint gp1, GeoPoint gp2) {
+    private double distance3(GeoCoordinate gp1, GeoCoordinate gp2) {
         double lat1 = gp1.getLatitude();
         double lat2 = gp2.getLatitude();
         double lon1 = gp1.getLongitude();
@@ -81,7 +81,7 @@ public class DummyTest {
 
         System.out.println("get hydrants call execution time --->  " + (endTime - startTime) + " milliseconds");
 
-        GeoPoint targetGeoPoint = new GeoPoint(40.7722168, -73.79457092);
+        GeoCoordinate targetGeoPoint = new GeoCoordinate(40.7722168, -73.79457092);
 
         //Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(calculationByDistance(hydrant.getGeoPoint(), targetGeoPoint)));
         Arrays.sort(hydrants);
@@ -89,8 +89,8 @@ public class DummyTest {
         endTime = System.currentTimeMillis();
         System.out.println("sort hydrants by distanceToFire execution time --->  " + (endTime - startTime) + " milliseconds");
 
-        GeoPoint gp1 = new GeoPoint(59.3293371,13.4877472);
-        GeoPoint gp2 = new GeoPoint(59.3225525,13.4619422);
+        GeoCoordinate gp1 = new GeoCoordinate(59.3293371,13.4877472);
+        GeoCoordinate gp2 = new GeoCoordinate(59.3225525,13.4619422);
 
         System.out.println(gp1.toString());
         System.out.println(gp2.toString());
