@@ -20,7 +20,6 @@ public class HydrantService implements IHydrantService{
     @Cacheable("hydrants-newyork-city")
     @Override
     public Hydrant[] getHydrantsOfNewYorkCity() throws IOException {
-        System.out.println("I am called");
         return objectMapper
                 .readValue(new URL("https://data.cityofnewyork.us/resource/5bgh-vtsn.json"),
                         Hydrant[].class);

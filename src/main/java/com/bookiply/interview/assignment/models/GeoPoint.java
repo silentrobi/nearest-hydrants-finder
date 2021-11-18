@@ -4,9 +4,7 @@ public class GeoPoint {
     private double longitude;
     private double latitude;
 
-    public GeoPoint(){
-
-    }
+    public GeoPoint(){}
 
     public GeoPoint(double latitude, double longitude) {
         this.latitude = latitude;

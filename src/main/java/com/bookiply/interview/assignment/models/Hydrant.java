@@ -12,8 +12,6 @@ public class Hydrant implements Comparable<Hydrant>{
                     @JsonProperty("longitude") double longitude) {
         this.objectId = objectId;
         this.unitId = unitId;
-        this.latitude = latitude;
-        this.longitude = longitude;
         this.geoPoint = new GeoPoint(latitude, longitude);
     }
 
@@ -21,9 +19,6 @@ public class Hydrant implements Comparable<Hydrant>{
     private String unitId;
     private GeoPoint geoPoint;
     private long distanceToFire;
-    private double longitude;
-    private double latitude;
-
 
     public GeoPoint getGeoPoint() {
         return geoPoint;

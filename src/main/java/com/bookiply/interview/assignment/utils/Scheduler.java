@@ -24,6 +24,6 @@ public class Scheduler {
     @Scheduled(fixedRate= 2 *  60 * 1000) // 2 min
     public void scheduleRefreshCache() throws IOException { // Pre-fetch on application start + refresh cache
         hydrantService.getHydrantsOfNewYorkCity();
-        System.out.println("Refreshing Cache -- " + new Date());
+        System.out.println("Refreshed Cache -- " + new Date());
     }
 }
