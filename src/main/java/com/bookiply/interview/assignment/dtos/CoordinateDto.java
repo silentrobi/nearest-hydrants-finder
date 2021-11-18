@@ -1,9 +1,9 @@
-package com.bookiply.interview.assignment.models;
+package com.bookiply.interview.assignment.dtos;
 
 import lombok.Data;
 
 @Data
-public class GeoPointDto {
+public class CoordinateDto {
     private double longitude;
     private double latitude;
 }
