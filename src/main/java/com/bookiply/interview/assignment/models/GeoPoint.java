@@ -8,9 +8,9 @@ public class GeoPoint {
 
     }
 
-    public GeoPoint(double longitude, double latitude) {
-        this.longitude = longitude;
+    public GeoPoint(double latitude, double longitude) {
         this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public double getLongitude() {

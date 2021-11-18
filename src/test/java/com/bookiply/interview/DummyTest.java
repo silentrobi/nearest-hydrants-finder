@@ -22,45 +22,51 @@ public class DummyTest {
         Assert.assertTrue(true);
     }
 
-    private double haversine(double[] coordinate1, double[] coordinate2) {
-        // distance between latitudes and longitudes
-        double dLat = Math.toRadians(coordinate2[1] - coordinate1[1]);
-        double dLon = Math.toRadians(coordinate2[0] - coordinate1[0]);
+    private double calculationByDistance(GeoPoint startP, GeoPoint endP) {
+        double lat1 = startP.getLatitude();
+        double lat2 = endP.getLatitude();
+        double lon1 = startP.getLongitude();
+        double lon2 = endP.getLongitude();
 
-        // convert to radians
-        coordinate1[1] = Math.toRadians(coordinate1[1]);
-        coordinate2[1] = Math.toRadians(coordinate2[1]);
-
-        // apply formulae
-        double a = Math.pow(Math.sin(dLat / 2), 2) +
-                Math.pow(Math.sin(dLon / 2), 2) *
-                        Math.cos(coordinate1[1]) *
-                        Math.cos(coordinate2[1]);
-        double rad = 6371.0;
-        double c = 2 * Math.asin(Math.sqrt(a));
-        return rad * c;
-    }
-
-    private double calculationByDistance(GeoPoint StartP, GeoPoint EndP) {
-        double lat1 = StartP.getLatitude()/1E6;
-        double lat2 = EndP.getLatitude()/1E6;
-        double lon1 = StartP.getLongitude()/1E6;
-        double lon2 = EndP.getLongitude()/1E6;
         double dLat = Math.toRadians(lat2-lat1);
         double dLon = Math.toRadians(lon2-lon1);
+
         double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
                         Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.asin(Math.sqrt(a));
         double Radius = 6371.0;
-        return Radius * c;
+        return Radius * c * 1000; // results in meter
+    }
+    private double deg2rad(double deg) {
+        return deg * (Math.PI/180);
+    }
+
+    private double distance3(GeoPoint gp1, GeoPoint gp2) {
+        double lat1 = gp1.getLatitude();
+        double lat2 = gp2.getLatitude();
+        double lon1 = gp1.getLongitude();
+        double lon2 = gp2.getLongitude();
+
+        double R = 6371; // Radius of the earth in km
+        double dLat = deg2rad(lat2-lat1);  // deg2rad below
+        double dLon = deg2rad(lon2-lon1);
+        double a =
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                                Math.sin(dLon/2) * Math.sin(dLon/2)
+                ;
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c; // Distance in km
+
+        return d * 1000; //Distance in Meter
     }
 
     class HydrantToFireComparator implements Comparator<Hydrant> {
 
         @Override
         public int compare(Hydrant o1, Hydrant o2) {
-            return (o1.getDistanceToFire() > o2.getDistanceToFire() ? 1 : -1);
+            return Double.compare(o1.getDistanceToFire(), o2.getDistanceToFire());
         }
     }
 
@@ -78,12 +84,23 @@ public class DummyTest {
 
         System.out.println("get hydrants call execution time --->  " + (endTime - startTime) + " milliseconds");
 
-        GeoPoint targetGeoPoint = new GeoPoint(-73.91289250895464, 40.644346617665086);
+        GeoPoint targetGeoPoint = new GeoPoint(40.7722168, -73.79457092);
 
         Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(calculationByDistance(hydrant.getGeoPoint(), targetGeoPoint)));
-        Arrays.sort(hydrants, new HydrantToFireComparator());
+        Arrays.sort(hydrants);
 
-        //System.out.println(hydrants[0]);
+        endTime = System.currentTimeMillis();
+        System.out.println("sort hydrants by distanceToFire execution time --->  " + (endTime - startTime) + " milliseconds");
+
+        GeoPoint gp1 = new GeoPoint(59.3293371,13.4877472);
+        GeoPoint gp2 = new GeoPoint(59.3225525,13.4619422);
+
+        System.out.println(gp1.toString());
+        System.out.println(gp2.toString());
+        Double dis = calculationByDistance(gp1,  gp2);
+        Double dis3 = distance3( gp1 , gp2);
+        System.out.println(dis);
+        System.out.println(dis3);
         for (Hydrant h: hydrants
              ) {
             System.out.println(h);

@@ -1,19 +1,33 @@
 package com.bookiply.interview.assignment.models;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Hydrant {
+public class Hydrant implements Comparable<Hydrant>{
+
+    @JsonCreator
+    public Hydrant( @JsonProperty("objectid") String objectId,
+                    @JsonProperty("unitid") String unitId,
+                    @JsonProperty("latitude") double latitude,
+                    @JsonProperty("longitude") double longitude) {
+        this.objectId = objectId;
+        this.unitId = unitId;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.geoPoint = new GeoPoint(latitude, longitude);
+    }
+
     private String objectId;
     private String unitId;
     private GeoPoint geoPoint;
     private double distanceToFire;
+    private double longitude;
+    private double latitude;
+
 
     public GeoPoint getGeoPoint() {
         return geoPoint;
@@ -31,7 +45,6 @@ public class Hydrant {
         this.distanceToFire = distanceToFire;
     }
 
-    @JsonProperty("objectid")
     public String getObjectId() {
         return objectId;
     }
@@ -40,20 +53,12 @@ public class Hydrant {
         this.objectId = objectId;
     }
 
-    @JsonProperty("unitid")
     public String getUnitId() {
         return unitId;
     }
 
     public void setUnitId(String unitId) {
         this.unitId = unitId;
-    }
-
-    @SuppressWarnings("unchecked")
-    @JsonProperty("the_geom")
-    private void unpackNested(Map<String,Object> geom) {
-        List<Double> coordinates = (List<Double>) geom.get("coordinates");
-        this.geoPoint = new GeoPoint(coordinates.get(0),coordinates.get(1));
     }
 
     @Override
@@ -64,5 +69,10 @@ public class Hydrant {
                 ", geoPoint=" + geoPoint.toString() +
                 ", distanceToFire=" + distanceToFire +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Hydrant o) {
+        return Double.compare(this.getDistanceToFire(), o.getDistanceToFire());
     }
 }
