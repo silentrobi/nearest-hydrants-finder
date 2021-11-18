@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HydrantDto {
-    private String unitId;
-    private int distanceToFire;
+    private String unitid;
+    private long distanceToFire;
 }

@@ -2,10 +2,6 @@ package com.bookiply.interview.assignment.models;
 
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Hydrant implements Comparable<Hydrant>{
 
@@ -24,7 +20,7 @@ public class Hydrant implements Comparable<Hydrant>{
     private String objectId;
     private String unitId;
     private GeoPoint geoPoint;
-    private double distanceToFire;
+    private long distanceToFire;
     private double longitude;
     private double latitude;
 
@@ -37,11 +33,11 @@ public class Hydrant implements Comparable<Hydrant>{
         this.geoPoint = geoPoint;
     }
 
-    public double getDistanceToFire() {
+    public long getDistanceToFire() {
         return distanceToFire;
     }
 
-    public void setDistanceToFire(double distanceToFire) {
+    public void setDistanceToFire(long distanceToFire) {
         this.distanceToFire = distanceToFire;
     }
 

@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class FirehoseDto {
-    private int totalFirehosesLength;
+    private long totalFirehosesLength;
     private HydrantDto[] hydrants;
 }

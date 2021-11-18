@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class GeoLocationService implements IGeoLocationService{
 
     @Override
-    public double distance(GeoPoint startP, GeoPoint endP) {
+    public long distance(GeoPoint startP, GeoPoint endP) {
         double lat1 = startP.getLatitude();
         double lat2 = endP.getLatitude();
         double lon1 = startP.getLongitude();
@@ -21,6 +21,6 @@ public class GeoLocationService implements IGeoLocationService{
                         Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.asin(Math.sqrt(a));
         double Radius = 6371.0; // in km
-        return Radius * c * 1000; // in meter
+        return Math.round(Radius * c * 1000); // in meter
     }
 }

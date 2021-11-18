@@ -1,10 +1,8 @@
 package com.bookiply.interview;
 
-import com.bookiply.interview.assignment.dtos.FireServiceActionDto;
 import com.bookiply.interview.assignment.models.GeoPoint;
 import com.bookiply.interview.assignment.models.Hydrant;
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,7 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public class DummyTest {
 
@@ -86,7 +83,7 @@ public class DummyTest {
 
         GeoPoint targetGeoPoint = new GeoPoint(40.7722168, -73.79457092);
 
-        Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(calculationByDistance(hydrant.getGeoPoint(), targetGeoPoint)));
+        //Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(calculationByDistance(hydrant.getGeoPoint(), targetGeoPoint)));
         Arrays.sort(hydrants);
 
         endTime = System.currentTimeMillis();
