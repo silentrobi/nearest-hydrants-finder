@@ -1,6 +1,6 @@
 package com.bookiply.interview;
 
-import com.bookiply.interview.assignment.dtos.FireService;
+import com.bookiply.interview.assignment.dtos.FireServiceActionDto;
 import com.bookiply.interview.assignment.models.GeoPoint;
 import com.bookiply.interview.assignment.models.Hydrant;
 import com.fasterxml.jackson.core.JsonParseException;
