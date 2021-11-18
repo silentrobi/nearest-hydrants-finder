@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class FireExtinguishActionService implements IFireExtinguishActionService {
@@ -23,23 +26,19 @@ public class FireExtinguishActionService implements IFireExtinguishActionService
     }
 
     @Override
-    public Hydrant[] getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException {
-        Hydrant[] hydrants = hydrantService.getHydrantsOfNewYorkCity();
+    public List<Hydrant> getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException {
+        List<Hydrant> hydrants = hydrantService.getHydrantsOfNewYorkCity();
 
         GeoCoordinate coordinate = fireServiceActionDto.getCoordinate();
-        Arrays.stream(hydrants).forEach(hydrant -> hydrant.setDistanceToFire(geoLocationService
+        hydrants.forEach(hydrant -> hydrant.setDistanceToFire(geoLocationService
                 .distance(hydrant.getCoordinate(),
                         new GeoCoordinate(coordinate.getLatitude(), coordinate.getLongitude()))));
 
         //sort array by distanceToFire
-        Arrays.sort(hydrants);
+        Collections.sort(hydrants);
 
         //select hydrants where hydrants[truckCount]
-        Hydrant[] requiredHydrants = Arrays.copyOfRange(hydrants, 0, fireServiceActionDto.getTruckCount());
-
-//        FirehoseDto firehoseDto = new FirehoseDto();
-//        firehoseDto.setTotalFirehosesLength(Arrays.stream(requiredHydrants).mapToLong(x -> x.getDistanceToFire()).sum());
-//        firehoseDto.setHydrants(Arrays.stream(requiredHydrants).map(x -> new HydrantDto(x.getUnitId(),  x.getDistanceToFire())).toArray(HydrantDto[]::new));
+        List<Hydrant> requiredHydrants = hydrants.subList(0, fireServiceActionDto.getTruckCount());
 
         return requiredHydrants;
     }

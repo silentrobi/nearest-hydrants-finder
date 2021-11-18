@@ -3,7 +3,8 @@ package com.bookiply.interview.assignment.services;
 import com.bookiply.interview.assignment.models.Hydrant;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface IHydrantService {
-    Hydrant[] getHydrantsOfNewYorkCity() throws IOException;
+    List<Hydrant> getHydrantsOfNewYorkCity() throws IOException;
 }

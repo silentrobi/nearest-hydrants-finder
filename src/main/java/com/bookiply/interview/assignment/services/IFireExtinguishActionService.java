@@ -5,7 +5,8 @@ import com.bookiply.interview.assignment.dtos.FirehoseDto;
 import com.bookiply.interview.assignment.models.Hydrant;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface IFireExtinguishActionService {
-    Hydrant[] getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException;
+    List<Hydrant> getRequiredFirehoses(FireExtinguishActionDto fireServiceActionDto) throws IOException;
 }
