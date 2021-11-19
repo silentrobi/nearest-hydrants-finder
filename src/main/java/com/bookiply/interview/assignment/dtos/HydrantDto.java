@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class HydrantDto {
     private String unitid;
-    private long distanceToFire;
+    private Long distanceToFire;
 
     public HydrantDto(){}
 
-    public HydrantDto(String unitid, long distanceToFire) {
+    public HydrantDto(String unitid, Long distanceToFire) {
         this.unitid = unitid;
         this.distanceToFire = distanceToFire;
     }
@@ -28,7 +28,7 @@ public class HydrantDto {
         return distanceToFire;
     }
 
-    public void setDistanceToFire(long distanceToFire) {
+    public void setDistanceToFire(Long distanceToFire) {
         this.distanceToFire = distanceToFire;
     }
 

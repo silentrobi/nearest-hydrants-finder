@@ -27,8 +27,4 @@ public class FireExtinguishActionServiceUnitTest {
 
     @Autowired
     private IFireExtinguishActionService fireExtinguishActionService;
-
-    @Test
-    public void
-
 }

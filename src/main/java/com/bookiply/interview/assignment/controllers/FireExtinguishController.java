@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -22,7 +23,7 @@ public class FireExtinguishController {
 
     @PostMapping("/closest-hydrants")
     @ResponseStatus(HttpStatus.OK)
-    public FirehoseDto getClosestHydrants(@RequestBody FireExtinguishActionDto fireExtinguishActionDto) throws IOException {
+    public FirehoseDto getClosestHydrants(@Valid @RequestBody FireExtinguishActionDto fireExtinguishActionDto) throws IOException {
         return FireHoseMapper.mapToFirehoseDto(fireExtinguishActionService.getRequiredFirehoses(fireExtinguishActionDto));
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class GeoLocationService implements IGeoLocationService{
 
     @Override
-    public long distance(GeoCoordinate startP, GeoCoordinate endP) {
+    public Long distance(GeoCoordinate startP, GeoCoordinate endP) {
         double lat1 = startP.getLatitude();
         double lat2 = endP.getLatitude();
         double lon1 = startP.getLongitude();

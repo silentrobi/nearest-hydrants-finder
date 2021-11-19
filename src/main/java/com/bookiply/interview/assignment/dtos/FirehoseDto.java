@@ -4,10 +4,10 @@ import lombok.Data;
 @Data
 public class FirehoseDto {
 
-    private long totalFirehosesLength;
+    private Long totalFirehosesLength;
     private HydrantDto[] hydrants;
 
-    private FirehoseDto(long totalFirehosesLength, HydrantDto[] hydrants)
+    private FirehoseDto(Long totalFirehosesLength, HydrantDto[] hydrants)
     {
         this.totalFirehosesLength = totalFirehosesLength;
         this.hydrants = hydrants;
@@ -20,7 +20,7 @@ public class FirehoseDto {
 
     public static class FirehoseDtoBuilder
     {
-        private long totalFirehosesLength;
+        private Long totalFirehosesLength;
         private HydrantDto[] hydrants;
 
 
