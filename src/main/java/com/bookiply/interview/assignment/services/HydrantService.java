@@ -14,8 +14,8 @@ import java.util.List;
 public class HydrantService implements IHydrantService{
 
     public final ObjectMapper objectMapper;
-    public HydrantService(ObjectMapper objectMapper){
-        this.objectMapper = objectMapper;
+    public HydrantService(){
+        this.objectMapper = new ObjectMapper();
     }
 
     @Cacheable("hydrants-newyork-city")
