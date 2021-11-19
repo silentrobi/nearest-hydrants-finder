@@ -1,13 +1,7 @@
 package com.bookiply.interview.integration;
 
 import com.bookiply.interview.assignment.App;
-import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
-import com.bookiply.interview.assignment.dtos.FireExtinguishActionDto;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,28 +29,6 @@ public class FireExtinguishControllerRestIntegrationTest {
 
     @Autowired
     private MockMvc mvc;
-
-//    @TestConfiguration
-//    static class FireExtinguishActionServiceTestContextConfiguration {
-//
-//        @Bean
-//        public ObjectMapper objectMapper() {
-//            return new ObjectMapper();
-//        }
-//
-//        @Bean
-//        public IGeoLocationService geoLocationService() {
-//            return new GeoLocationService();
-//        }
-//
-//        @Bean
-//        public IHydrantService hydrantService() {
-//            return new HydrantService(objectMapper());
-//        }
-//    }
-//
-//    @Autowired
-//    private IFireExtinguishActionService fireExtinguishActionService;
 
     @Test
     public void whenNullGeoLocationInput_thenReturnError_forFireExtinguishAction() throws Exception {

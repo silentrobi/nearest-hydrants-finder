@@ -3,78 +3,55 @@ package com.bookiply.interview.integration;
 import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import com.bookiply.interview.assignment.dtos.FireExtinguishActionDto;
 
-import com.google.gson.Gson;
+import com.bookiply.interview.assignment.models.Hydrant;
+import com.bookiply.interview.assignment.services.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@AutoConfigureMockMvc
 public class FireExtinguishActionServiceIntegrationTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @TestConfiguration
+    static class FireExtinguishActionServiceTestContextConfiguration {
 
-//    @TestConfiguration
-//    static class FireExtinguishActionServiceTestContextConfiguration {
-//
-//        @Bean
-//        public ObjectMapper objectMapper() {
-//            return new ObjectMapper();
-//        }
-//
-//        @Bean
-//        public IGeoLocationService geoLocationService() {
-//            return new GeoLocationService();
-//        }
-//
-//        @Bean
-//        public IHydrantService hydrantService() {
-//            return new HydrantService(objectMapper());
-//        }
-//    }
-//
-//    @Autowired
-//    private IFireExtinguishActionService fireExtinguishActionService;
+        @Bean
+        public IGeoLocationService geoLocationService() {
+            return new GeoLocationService();
+        }
 
-    @Test
-    public void whenInvalidGeoLocationInput_thenReturnError_forFireExtinguishAction() throws Exception {
-        FireExtinguishActionDto actionDto = new FireExtinguishActionDto();
-        actionDto.setCoordinate(new GeoCoordinate(91.0, 43.221234));
-        actionDto.setTruckCount(3);
-
-        Gson gson = new Gson();
-
-        // @formatter:off
-        mvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(actionDto)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("latitude is higher than max_latitude: 90.0"));
-        // @formatter:on
+        @Bean
+        public IHydrantService hydrantService() {
+            return new HydrantService();
+        }
+        @Bean
+        public IFireExtinguishActionService fireExtinguishActionService() {
+            return new FireExtinguishActionService(geoLocationService(), hydrantService());
+        }
     }
 
+    @Autowired
+    private IFireExtinguishActionService fireExtinguishActionService;
+
     @Test
-    public void whenEmptyGeoLocationInput_thenReturnError_forFireExtinguishAction() throws Exception {
+    public void shouldReturnHydrantList_OnGetRequiredFirehosesInvoked() throws Exception {
         FireExtinguishActionDto actionDto = new FireExtinguishActionDto();
-        actionDto.setCoordinate(new GeoCoordinate());
+        actionDto.setCoordinate(new GeoCoordinate(40.7722168, -73.79457092));
         actionDto.setTruckCount(3);
 
-        Gson gson = new Gson();
+        List<Hydrant> found = fireExtinguishActionService.getRequiredFirehoses(actionDto);
 
-        // @formatter:off
-        mvc.perform(post("/api/v1/users").contentType(MediaType.APPLICATION_JSON).content(gson.toJson(actionDto)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string("latitude is higher than max_latitude: 90.0"));
-        // @formatter:on
+        Assert.assertEquals(3, found.size());
+        Assert.assertEquals("169", found.get(0).getObjectId());
+        Assert.assertEquals("H425919a", found.get(0).getUnitId());
+        Assert.assertEquals(0, found.get(0).getDistanceToFire());
     }
 }
