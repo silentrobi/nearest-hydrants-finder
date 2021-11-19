@@ -21,8 +21,9 @@ public class HydrantService implements IHydrantService{
     @Cacheable("hydrants-newyork-city")
     @Override
     public List<Hydrant> getHydrantsOfNewYorkCity() throws IOException {
-        return objectMapper
+        List<Hydrant> res = objectMapper
                 .readValue(new URL("https://data.cityofnewyork.us/resource/5bgh-vtsn.json"),
                         new TypeReference<List<Hydrant>>(){});
+        return res;
     }
 }

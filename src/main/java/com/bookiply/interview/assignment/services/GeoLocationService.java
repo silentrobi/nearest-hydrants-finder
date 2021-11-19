@@ -21,6 +21,7 @@ public class GeoLocationService implements IGeoLocationService{
                         Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.asin(Math.sqrt(a));
         double Radius = 6371.0; // in km
-        return Math.round(Radius * c * 1000); // in meter
+
+        return (long) Math.ceil(Radius * c * 1000); // in Meter
     }
 }

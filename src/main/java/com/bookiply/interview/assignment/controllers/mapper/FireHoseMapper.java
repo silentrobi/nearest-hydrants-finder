@@ -4,7 +4,6 @@ import com.bookiply.interview.assignment.dtos.FirehoseDto;
 import com.bookiply.interview.assignment.dtos.HydrantDto;
 import com.bookiply.interview.assignment.models.Hydrant;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FireHoseMapper {

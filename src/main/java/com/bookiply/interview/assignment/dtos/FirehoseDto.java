@@ -1,6 +1,4 @@
 package com.bookiply.interview.assignment.dtos;
-
-import com.bookiply.interview.assignment.domainvalues.GeoCoordinate;
 import lombok.Data;
 
 @Data
