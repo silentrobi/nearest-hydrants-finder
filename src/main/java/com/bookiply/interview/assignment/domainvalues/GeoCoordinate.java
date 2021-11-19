@@ -3,20 +3,20 @@ package com.bookiply.interview.assignment.domainvalues;
 import com.google.common.base.Preconditions;
 
 import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 public class GeoCoordinate {
 
-    private static final Double MAX_LATITUDE = 90.0;
-    private static final Double MIN_LATITUDE = -90.0;
-    private static final Double MAX_LONGITUDE = 180.0;
-    private static final Double MIN_LONGITUDE = -180.0;
-
     @NotNull(message = "longitude is required")
+    @DecimalMin(value= "-180.0", message = "longitude is lower than min_longitude: -180.0" )
+    @DecimalMax(value= "180.0", message = "longitude is higher  than max_longitude: 180.0" )
     private Double longitude;
 
-    @NotNull(message = "longitude is required")
+    @NotNull(message = "latitude is required")
+    @DecimalMin(value= "-90.0", message = "latitude is lower than min_latitude: -90.0" )
+    @DecimalMax(value= "90.0", message = "latitude is higher  than max_latitude: 90.0" )
     private Double latitude;
 
 
@@ -24,10 +24,6 @@ public class GeoCoordinate {
     }
 
     public GeoCoordinate(Double latitude, Double longitude) {
-        Preconditions.checkArgument(latitude >= MIN_LATITUDE, "latitude is lower than min_latitude: " + MIN_LATITUDE);
-        Preconditions.checkArgument(latitude <= MAX_LATITUDE, "latitude is higher than max_latitude: " + MAX_LATITUDE);
-        Preconditions.checkArgument(longitude >= MIN_LONGITUDE, "longitude is lower than min_longitude: " + MIN_LONGITUDE);
-        Preconditions.checkArgument(longitude <= MAX_LONGITUDE, "longitude is higher than max_longitude: " + MAX_LONGITUDE);
         this.latitude = latitude;
         this.longitude = longitude;
     }
