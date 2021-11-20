@@ -18,7 +18,7 @@ public class FireExtinguishController {
     private final IFireExtinguishActionService fireExtinguishActionService;
 
     @Autowired
-    public FireExtinguishController(IFireExtinguishActionService fireExtinguishActionService){
+    public FireExtinguishController(final IFireExtinguishActionService fireExtinguishActionService){
         this.fireExtinguishActionService = fireExtinguishActionService;
     }
 

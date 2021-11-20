@@ -13,6 +13,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class CachingConfig {
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("hydrants-newyork-city");
+        return new ConcurrentMapCacheManager("NEW_YORK_CITY_HYDRANTS");
     }
 }

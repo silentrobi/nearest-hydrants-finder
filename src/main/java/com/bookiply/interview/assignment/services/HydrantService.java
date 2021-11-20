@@ -18,7 +18,7 @@ public class HydrantService implements IHydrantService{
         this.objectMapper = new ObjectMapper();
     }
 
-    @Cacheable("hydrants-newyork-city")
+    @Cacheable("NEW_YORK_CITY_HYDRANTS")
     @Override
     public List<Hydrant> getHydrantsOfNewYorkCity() throws IOException {
         List<Hydrant> res = objectMapper
