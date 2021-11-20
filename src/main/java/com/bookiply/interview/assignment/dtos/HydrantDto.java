@@ -1,10 +1,5 @@
 package com.bookiply.interview.assignment.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
 public class HydrantDto {
     private String unitid;
     private Long distanceToFire;
@@ -30,13 +25,5 @@ public class HydrantDto {
 
     public void setDistanceToFire(Long distanceToFire) {
         this.distanceToFire = distanceToFire;
-    }
-
-    @Override
-    public String toString() {
-        return "HydrantDto{" +
-                "unitid='" + unitid + '\'' +
-                ", distanceToFire=" + distanceToFire +
-                '}';
     }
 }

@@ -35,16 +35,15 @@ public class FireExtinguishActionServiceUnitTest {
         public IHydrantService hydrantService() {
             return new HydrantService();
         }
+
         @Bean
         public IFireExtinguishActionService fireExtinguishActionService() {
             return new FireExtinguishActionService(geoLocationService(), hydrantService());
         }
     }
 
-
     @MockBean
     IHydrantService hydrantService;
-
 
     @Autowired
     private IFireExtinguishActionService fireExtinguishActionService;
@@ -65,7 +64,7 @@ public class FireExtinguishActionServiceUnitTest {
         Assert.assertEquals(0, found.get(0).getDistanceToFire());
     }
 
-    private List<Hydrant> mockHydrants(){
+    private List<Hydrant> mockHydrants() {
         List<Hydrant> hydrants = new ArrayList<>();
         hydrants.add(new Hydrant("169", "H425919a", 40.7722168, -73.79457092));
         hydrants.add(new Hydrant("170", "H325449", 40.64434814, -73.9128952));

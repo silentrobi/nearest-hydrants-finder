@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableCaching
 @EnableScheduling
 public class CachingConfig {
-
     @Bean
     public CacheManager cacheManager() {
         return new ConcurrentMapCacheManager("hydrants-newyork-city");

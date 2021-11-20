@@ -65,7 +65,7 @@ public class FireExtinguishControllerRestIntegrationTest {
     }
 
     @Test
-    public void whenValidGeoLocationInput_thenReturnFireHoseJsonResponse_forFireExtinguishAction() throws Exception {
+    public void whenValidGeoLocationInput_thenReturnFireHoseJsonResponse() throws Exception {
         String actionJson = "{\"coordinate\":{\"latitude\":40.7722168,\"longitude\":-73.79457092},\"truckCount\":4}";
 
         // @formatter:off

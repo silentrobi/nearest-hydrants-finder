@@ -1,7 +1,5 @@
 package com.bookiply.interview.assignment.dtos;
-import lombok.Data;
 
-@Data
 public class FirehoseDto {
 
     private Long totalFirehosesLength;
@@ -11,6 +9,14 @@ public class FirehoseDto {
     {
         this.totalFirehosesLength = totalFirehosesLength;
         this.hydrants = hydrants;
+    }
+
+    public Long getTotalFirehosesLength() {
+        return totalFirehosesLength;
+    }
+
+    public HydrantDto[] getHydrants() {
+        return hydrants;
     }
 
     public static FirehoseDtoBuilder newBuilder()
@@ -29,7 +35,6 @@ public class FirehoseDto {
             this.totalFirehosesLength = totalFirehosesLength;
             return this;
         }
-
 
         public FirehoseDtoBuilder setHydrants(HydrantDto[] hydrants)
         {

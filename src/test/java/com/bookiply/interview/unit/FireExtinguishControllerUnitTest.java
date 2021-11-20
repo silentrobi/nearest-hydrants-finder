@@ -4,7 +4,7 @@ import com.bookiply.interview.assignment.App;
 import com.bookiply.interview.assignment.controllers.FireExtinguishController;
 import com.bookiply.interview.assignment.models.Hydrant;
 import com.bookiply.interview.assignment.services.*;
-import org.junit.Before;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = FireExtinguishController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
-@ContextConfiguration(classes={App.class})
+@ContextConfiguration(classes = {App.class})
 public class FireExtinguishControllerUnitTest {
 
     @Autowired
@@ -39,10 +39,6 @@ public class FireExtinguishControllerUnitTest {
 
     @MockBean
     private IFireExtinguishActionService fireExtinguishActionService;
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void whenGivenValidInputs_getClosestHydrants_returnsFireHosesDto() throws Exception {
@@ -63,11 +59,12 @@ public class FireExtinguishControllerUnitTest {
         mvc.perform(post("/api/v1/closest-hydrants").contentType(MediaType.APPLICATION_JSON).content(actionJson)).andExpect(status().isOk())
                 .andExpect(jsonPath("$.hydrants", hasSize(3)))
                 .andExpect(jsonPath("$.totalFirehosesLength", is(739)));
+
         verify(fireExtinguishActionService, VerificationModeFactory
                 .times(1))
                 .getRequiredFirehoses(Mockito.any());
-
         // @formatter:on
+
         reset(fireExtinguishActionService);
     }
 }

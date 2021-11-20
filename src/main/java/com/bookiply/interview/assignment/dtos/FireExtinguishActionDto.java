@@ -31,12 +31,4 @@ public class FireExtinguishActionDto {
     public int getTruckCount() {
         return truckCount;
     }
-
-    @Override
-    public String toString() {
-        return "FireExtinguishActionDto{" +
-                "coordinate=" + coordinate +
-                ", truckCount=" + truckCount +
-                '}';
-    }
 }

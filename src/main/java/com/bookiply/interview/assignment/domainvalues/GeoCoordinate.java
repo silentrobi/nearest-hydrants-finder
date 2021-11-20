@@ -1,10 +1,7 @@
 package com.bookiply.interview.assignment.domainvalues;
 
-import com.google.common.base.Preconditions;
-
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 public class GeoCoordinate {
@@ -18,10 +15,6 @@ public class GeoCoordinate {
     @DecimalMin(value= "-90.0", message = "latitude is lower than min_latitude: -90.0" )
     @DecimalMax(value= "90.0", message = "latitude is higher  than max_latitude: 90.0" )
     private Double latitude;
-
-
-    public GeoCoordinate() {
-    }
 
     public GeoCoordinate(Double latitude, Double longitude) {
         this.latitude = latitude;

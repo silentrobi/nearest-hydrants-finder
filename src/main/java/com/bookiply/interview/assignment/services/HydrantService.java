@@ -12,8 +12,8 @@ import java.util.List;
 
 @Component
 public class HydrantService implements IHydrantService{
-
     public final ObjectMapper objectMapper;
+
     public HydrantService(){
         this.objectMapper = new ObjectMapper();
     }
