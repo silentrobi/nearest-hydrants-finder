@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 public class FireExtinguishActionServiceUnitTest {
@@ -62,6 +63,28 @@ public class FireExtinguishActionServiceUnitTest {
         Assert.assertEquals("169", found.get(0).getObjectId());
         Assert.assertEquals("H425919a", found.get(0).getUnitId());
         Assert.assertEquals(0, found.get(0).getDistanceToFire());
+    }
+
+    @Test
+    public void shouldReturnSortedHydrantList_ByDistanceToFire_OnGetRequiredFirehosesInvoked() throws Exception {
+        FireExtinguishActionDto actionDto = new FireExtinguishActionDto();
+        actionDto.setCoordinate(new GeoCoordinate(40.7722168, -73.79457092));
+        actionDto.setTruckCount(6);
+
+        Mockito.when(hydrantService.getHydrantsOfNewYorkCity()).thenReturn(mockHydrants());
+
+        List<Hydrant> found = fireExtinguishActionService.getRequiredFirehoses(actionDto);
+
+        List<Long> sortedDistanceToFire = found.stream()
+                .map(Hydrant::getDistanceToFire)
+                .collect(Collectors.toList());
+
+        Assert.assertEquals(6, sortedDistanceToFire.size());
+        Assert.assertTrue(sortedDistanceToFire.get(0) < sortedDistanceToFire.get(1));
+        Assert.assertTrue(sortedDistanceToFire.get(1) < sortedDistanceToFire.get(2));
+        Assert.assertTrue(sortedDistanceToFire.get(2) < sortedDistanceToFire.get(3));
+        Assert.assertTrue(sortedDistanceToFire.get(3) < sortedDistanceToFire.get(4));
+        Assert.assertTrue(sortedDistanceToFire.get(4) < sortedDistanceToFire.get(5));
     }
 
     private List<Hydrant> mockHydrants() {
