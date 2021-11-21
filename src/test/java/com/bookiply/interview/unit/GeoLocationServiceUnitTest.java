@@ -19,7 +19,7 @@ public class GeoLocationServiceUnitTest {
     }
 
     @Test
-    public void distanceShouldBeMatchExpectedValues_ForDifferentGeoLocationPoints() {
+    public void distanceShouldMatchExpectedValues_ForDifferentGeoLocationPoints() {
         GeoCoordinate coordinate1 = new GeoCoordinate(41.008621669219785, 28.979869398791546);
         GeoCoordinate coordinate2 = new GeoCoordinate(41.025819416551755, 28.974038581146605);
         GeoCoordinate coordinate3 = new GeoCoordinate(41.01999736371343, 28.957271729708253);
