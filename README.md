@@ -56,3 +56,19 @@ The API endpoint should return a JSON object containing:
     ] 
 }
 ```
+
+## Sample API request
+**End point**: `/api/v1/closest-hydrants`
+
+```shell
+curl --location --request POST 'http://localhost:8080/api/v1/closest-hydrants' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "coordinate":{
+        "latitude": 40.7722168,
+        "longitude": -73.79457092
+    },
+    "truckCount": 6
+}'
+
+```
