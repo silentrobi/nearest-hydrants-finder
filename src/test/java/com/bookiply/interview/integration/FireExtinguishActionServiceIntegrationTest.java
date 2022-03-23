@@ -54,4 +54,18 @@ public class FireExtinguishActionServiceIntegrationTest {
         Assert.assertEquals("H425919a", found.get(0).getUnitId());
         Assert.assertEquals(0, found.get(0).getDistanceToFire());
     }
+
+    @Test
+    public void shouldReturnHydrantList_OnGetRequiredFirehosesInvokedHashMap() throws Exception {
+        FireExtinguishActionDto actionDto = new FireExtinguishActionDto();
+        actionDto.setCoordinate(new GeoCoordinate(40.7722168, -73.79457092));
+        actionDto.setTruckCount(3);
+
+        List<Hydrant> found = fireExtinguishActionService.getRequiredByHashMap(actionDto);
+
+        Assert.assertEquals(3, found.size());
+        Assert.assertEquals("169", found.get(0).getObjectId());
+        Assert.assertEquals("H425919a", found.get(0).getUnitId());
+        Assert.assertEquals(0, found.get(0).getDistanceToFire());
+    }
 }
